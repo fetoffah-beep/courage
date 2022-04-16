@@ -3,6 +3,8 @@ This is for my personal use
 
 Link to the online [resources](https://drive.google.com/drive/folders/1E0flgNYPHWNTtkQJgtgMct-dAz_D51mx?usp=sharing)
 
+![Image](https://avatars.githubusercontent.com/u/58446182?v=4)
+
 ## Owned by
 | Name  			| Email                                 |
 |-------------------|---------------------------------------|
