@@ -3,7 +3,7 @@ function [stat_elev] = getTimeZone(latitude, longitude, time)
      
      longitude = string(longitude / pi * 180);
      
-     baseUrl = 'https://api.opentopodata.org/v1/srtm30m?locations=';
+     baseUrl = 'https://api.opentopodata.org/v1/etopo1?locations=';
      
      httpsUrl = strcat(baseUrl,latitude,',',longitude);
      
@@ -11,5 +11,4 @@ function [stat_elev] = getTimeZone(latitude, longitude, time)
   
      stat_elev = webHTML.results.elevation;
      
- end
-
+end

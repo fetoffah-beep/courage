@@ -9,12 +9,12 @@ function getMeteoData(latitude, longitude, startTime, endTime, file_name)
     % Get the size of the data retrieved from the web
     [numDays, numHoursInADay] = size(out);
     
-    % Initialise the needed variables. The type name has been specified to account for
-    % a user who has change his default settings
+    % Initialise the needed variables.
     temperature = zeros(numDays * numHoursInADay, 1);
     pressure = zeros(numDays * numHoursInADay, 1);
     humidity = zeros(numDays * numHoursInADay, 1);
     windSpeed = zeros(numDays * numHoursInADay, 1);
+    windBearing = zeros(numDays * numHoursInADay, 1);
     rainIntensity = zeros(numDays * numHoursInADay, 1);
     allHours = zeros(numDays * numHoursInADay, 1);
     
@@ -25,6 +25,7 @@ function getMeteoData(latitude, longitude, startTime, endTime, file_name)
             pressure(24*(i-1)+j) = str2double(out{i,j}.pressure);
             humidity(24*(i-1)+j) = str2double(out{i,j}.humidity);
             windSpeed(24*(i-1)+j) = str2double(out{i,j}.windSpeed);
+            windBearing(24*(i-1)+j) = str2double(out{i,j}.windBearing);
             rainIntensity(24*(i-1)+j) = str2double(out{i,j}.precipIntensity);
             allHours(24*(i-1)+j) = str2double(out{i,j}.time);
         end
@@ -35,7 +36,7 @@ function getMeteoData(latitude, longitude, startTime, endTime, file_name)
     mds = Meteo_Data;
     mds.setName(file_name);
     mds.setRinType(3);
-    mds.setData(allHours, [temperature pressure humidity windSpeed rainIntensity], [Meteo_Data.TD Meteo_Data.PR Meteo_Data.HR Meteo_Data.WS Meteo_Data.RR]);
+    mds.setData(allHours, [pressure temperature humidity windBearing windSpeed rainIntensity], [Meteo_Data.PR Meteo_Data.TD Meteo_Data.HR Meteo_Data.WD Meteo_Data.WS Meteo_Data.RR]);
     mds.setValid(true);
     [x, y, z] = geod2cart(latitude, longitude, stat_elev);
     mds.setCoordinates([x, y, z]  );

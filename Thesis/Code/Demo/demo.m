@@ -37,6 +37,12 @@ grid on;
 % Call out the function to get the weather data
 out = getWeatherInfo(valLong, valLat, startTime, endTime);
 
+% Check that the weather data is not empty
+if isempty(out)
+    msgbox('No data available for the specified date', 'Error', 'error', 'modal');
+    return
+end
+
 % Get the time zone offset and adjust the unix times
 tzOffset = getTimeZone(valLong, valLat, startTime);
 
@@ -282,7 +288,8 @@ end
         
         
     end
-    function weatherInfo (figHandle, label)
+
+    function weatherInfo (figHandle, label, out, tzOffset)
         
         %%%%%%%%% TWO AXES OBJECTS ARE BEING USED HERE TO %%%%%%%%%%%%%%%%%%%%%%%%%
         %%%%%%%%% PRESERVE THE LEGEND FOR THE FIRST GRAPH %%%%%%%%%%%%%%%%%%%%%%%%%
@@ -303,6 +310,7 @@ end
         
         valLat = pos(1);
         valLong = pos(2);
+        
         
         % Find all the axes and create the children object in the
         % current axes that has a title
@@ -335,26 +343,15 @@ end
             end
         end
         
-        % Get the weather data
-        out = getWeatherInfo(valLat, valLong, startTime, endTime);
-        
-        
-        % Check that the weather data is not empty
-        if isempty(out)
-            msgbox('No data available for the specified date', 'Error', 'error', 'modal');
-            return
-        end
-        
-        % Get the time zone offset and adjust the unix times
-        tzOffset = getTimeZone(valLat, valLong, startTime);
         
         % Get the elevation of the station
-        stat_elev = getGeodHeight(valLat, valLong);
-       
-        % Generate the meteorological rinex file
-        marker_name = strcat(figHandle.UserData.marker_name, '_');
-        getMeteoData(valLat, valLong, startTime, endTime, marker_name)
-         
+%         stat_elev = getGeodHeight(valLat, valLong);
+        
+        %                 % Generate the meteorological rinex file
+        %                 marker_name = strcat(figHandle.UserData.marker_name, '_');
+        %                 getMeteoData(valLat, valLong, startTime, endTime, marker_name)
+        
+        
         % Get the size of the data retrieved from the web
         [numDays, numHoursInADay] = size(out);
         
@@ -677,7 +674,7 @@ end
                                 'Clipping', 'on', 'Tag', 'pressure', 'FontSize', 8, 'Color', 'white');
                             
                             if lt(24*(i-1)+j, 30)
-                                if le(numDays,2)
+                                if lt(numDays,2)
                                     if isequal(rem(j,2), 0)
                                         set(presTxt, 'Visible', 'off');
                                     end
@@ -726,6 +723,21 @@ end
                             end
                             
                         case 'Wind Bearing'
+                            
+                            %                                     bearingTxt = text(ax, allHours(24*(i-1)+j)-xOffset, ...
+                            %                                                          double(ydataMax+textOffset), bearingValues, ...
+                            %                                                          'Clipping', 'on', 'Tag', 'windbearing', 'FontSize', 8, 'Color', 'white');
+                            %                                     if ~isequal(rem(24*(numDays-1)+j,numDays),0)
+                            %                                         set(bearingTxt, 'Visible', 'off');
+                            %                                     end
+                            % %                                     [xdir, ydir] = pol2cart(pi/2-str2num(bearingValues)*pi/180, xOffset);
+                            %                                     quint = quiver(ax,(allHours(24*(i-1)+j)-xOffset), (double(ydataMax+textOffset)), xdir, ydir,'LineWidth',2, 'Tag', 'windbearing');
+                            
+                            %                                     axis equal
+                            %                                     quint
+                            %                                     axis normal
+                            
+                            
                             modulus = str2double(bearingValues);
                             max_size = yOffset;
                             marker_scale = max_size / max(modulus);
@@ -830,6 +842,16 @@ end
                             
                             
                         case 'Show ALL'
+                            
+                            % 'Wind Bearing'
+                            %                                     bearingTxt = text(ax, allHours(24*(i-1)+j)-xOffset, ...
+                            %                                                  double(ydataMax), bearingValues, ...
+                            %                                                  'Clipping', 'on', 'FontSize', 8, ...
+                            %                                                  'Color', 'white', 'Tag', 'windbearing');
+                            %                                     if ~isequal(rem(24*(numDays-1)+j,numDays),0)
+                            %                                         set(bearingTxt, 'Visible', 'off');
+                            %                                     end
+                            
                             modulus = str2double(bearingValues);
                             max_size = yOffset;
                             marker_scale = max_size / max(modulus);
@@ -873,7 +895,7 @@ end
                                 'Clipping', 'on', 'FontSize', 8, ...
                                 'Color', 'white', 'Tag', 'pressure');
                             if lt(24*(i-1)+j, 30)
-                                if le(numDays,2)
+                                if lt(numDays,2)
                                     if isequal(rem(j,2), 0)
                                         set(presTxt, 'Visible', 'off');
                                     end
@@ -1020,14 +1042,14 @@ end
         
         
         
-        % Change the text color according to the aspect mode
-        aspect = get(figHandle, 'Color');
-        
-        if isequal(aspect, [1 1 1])
-            set(findall(ax, 'Type', 'Text'), 'Color', 'k');
-        else
-            set(findall(ax, 'Type', 'Text'), 'Color', 'w');
-        end
+%         % Change the text color according to the aspect mode
+%         aspect = get(figHandle, 'Color');
+%         
+%         if ~isequal(aspect, [1 1 1])
+%             set(findall(ax, 'Type', 'Text'), 'Color', 'k');
+%         else
+%             set(findall(ax, 'Type', 'Text'), 'Color', 'w');
+%         end
         
         
         
@@ -1045,13 +1067,13 @@ end
             legendTitles = get(legItems, 'Title');
             
             legendExist = 0;
-            for i = 1:length(legendTitles)
-                if strcmp('Weather conditions', legendTitles{i,1}.String)
-                    % Legend has already been created
-                    legendExist = 1;
-                end
-                
-            end
+            %                     for i = 1:length(legendTitles)
+            %                         if strcmp('Weather conditions', legendTitles{i,1}.String)
+            %                             % Legend has already been created
+            %                             legendExist = 1;
+            %                         end
+            %
+            %                     end
             
             if isequal(legendExist,0)
                 
@@ -1063,12 +1085,12 @@ end
                     lgd.Visible = 'off';
                 end
                 
-                % Set the text color
-                if isequal(aspect, [1 1 1])
-                    set(lgd, 'TextColor', 'k');
-                else
-                    set(lgd, 'TextColor', 'w');
-                end
+%                 % Set the text color
+%                 if ~isequal(aspect, [1 1 1])
+%                     set(lgd, 'TextColor', 'k');
+%                 else
+%                     set(lgd, 'TextColor', 'w');
+%                 end
                 
             end
             %                     set(findall(gcf, 'Type', 'Surface'), 'Visible', 'off');
