@@ -20,6 +20,7 @@ const touch_array = [];
 	if (e.type = 'mousedown'){
 		start = { x: e.clientX - pointX, y: e.clientY - pointY };
 	} else if (e.type = 'touchstart'){
+		alert('working')
 		if (e.touches.length === 1){
 			start = { x: e.touches[0].clientX , y: e.touches[0].clientY};			
 		} else if (e.touches.length >= 1){
