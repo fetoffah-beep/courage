@@ -2,7 +2,7 @@
 function blocco_mousedx(){
 	return(false);
 };
-document.oncontextmenu = blocco_mousedx;
+// document.oncontextmenu = blocco_mousedx;
 
 
 // Set the default value of the date picker to today's date
