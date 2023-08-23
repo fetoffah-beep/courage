@@ -17,9 +17,9 @@ const touch_array = [];
 })(zoommap, ['mousedown', 'touchstart'], (e) => {
 	e.preventDefault();
 	panning = true;
-	if (e.type = 'mousedown'){
+	if (e.type == 'mousedown'){
 		start = { x: e.clientX - pointX, y: e.clientY - pointY };
-	} else if (e.type = 'touchstart'){
+	} else if (e.type == 'touchstart'){
 		alert(1234);
 		if (e.touches.length === 1){
 			start = { x: e.touches[0].clientX , y: e.touches[0].clientY};			
@@ -65,11 +65,11 @@ const touch_array = [];
 	// var img_dim = zoommap.getBoundingClientRect();
 	// mapimg_div_dim.right = img_dim.right
 	
-	if (e.type = 'mousemove'){
+	if (e.type == 'mousemove'){
 		pointX = (e.clientX - start.x);
 		pointY = (e.clientY - start.y);
 		zoommap.style.transform = "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")";
-	} else if (e.type = 'touchmove'){
+	} else if (e.type == 'touchmove'){
 		pointX = (e.touches[0].clientX - start.x);
 		pointY = (e.touches[0].clientY - start.y);
 		zoommap.style.transform = "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")";
@@ -86,7 +86,7 @@ const touch_array = [];
 })(zoommap, ['mousewheel', 'touchmove'], (e) => {
 	e.preventDefault();
 
-    if (e.type = 'mousedown'){
+    if (e.type == 'mousedown'){
     	zoommap.style.transform = "none";
 
 		var img_dim = zoommap.getBoundingClientRect();
@@ -98,7 +98,7 @@ const touch_array = [];
 
 	    (delta > 0) ? (scale *= 1.2) : (scale /= 1.2);
 
-	} else if (e.type = 'touchstart'){
+	} else if (e.type == 'touchstart'){
 		if (e.touches.length === 2){
 
 			if (event.scale) {
