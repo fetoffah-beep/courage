@@ -68,14 +68,11 @@ const touch_array = [];
 	// 		zoommap.style.transform = "translateY(" + pointY + "px) scale(" + scale + ")";
 	// 	} else {
 			zoommap.style.transform = "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")";
-		}
-
-		
-	// } else if (e.type == 'touchmove'){
-	// 	pointX = (e.touches[0].clientX - start.x);
-	// 	pointY = (e.touches[0].clientY - start.y);
-	// 	zoommap.style.transform = "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")";
-	// }
+		} else if (e.type == 'touchmove'){
+			pointX = (e.touches[0].clientX - start.x);
+			pointY = (e.touches[0].clientY - start.y);
+			zoommap.style.transform = "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")";
+	}
 
 });
 
