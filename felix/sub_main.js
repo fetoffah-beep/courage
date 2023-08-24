@@ -110,6 +110,7 @@ const touch_array = [];
 		      var x = ((img_dim.width - (img_dim.right- mid_x ))/img_dim.width) * 100; //x position within the img element
 	    	  var y = ((img_dim.height - (img_dim.bottom- mid_y))/img_dim.height) * 100; //y position within the img element
 		      zoommap.style.transformOrigin = x + "% " + y + "%";
+			alert(mid_x, mid_y, x,y);
 		}
 	}
 	scale = Math.min(Math.max(1, scale), 20);
