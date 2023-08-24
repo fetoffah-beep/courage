@@ -40,14 +40,6 @@ const touch_array = [];
 	panning = false;
 });
 
-// if (e.type = 'mousedown'){
-
-// } else if (e.type = 'touchstart'){
-	
-// }
-
-
-
 // Mouse move || touchmove || Panning the image
 ((zoommap, event_names, zoom_end) => {
 	event_names.forEach( (event_name) => {
@@ -97,7 +89,7 @@ const touch_array = [];
 
 	    (delta > 0) ? (scale *= 1.2) : (scale /= 1.2);
 
-	} else if (e.type == 'touchstart'){
+	} else if (e.type == 'touchmove'){
 		if (e.touches.length === 2){
 
 			if (event.scale) {
