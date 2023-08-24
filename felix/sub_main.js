@@ -77,7 +77,7 @@ const touch_array = [];
 })(zoommap, ['mousewheel', 'touchmove'], (e) => {
 	e.preventDefault();
 
-    if (e.type == 'mousedown'){
+    if (e.type == 'mousewheel'){
     	zoommap.style.transform = "none";
 
 		var img_dim = zoommap.getBoundingClientRect();
@@ -89,14 +89,14 @@ const touch_array = [];
 
 	    (delta > 0) ? (scale *= 1.2) : (scale /= 1.2);
 
-	} else if (e.type == 'touchstart'){
+	} else if (e.type == 'touchmove'){
 		if (e.touches.length === 2){
 
 			if (event.scale) {
 		        scale = event.scale;
 		    } else {
 				const move_dist = Math.hypot(event.touches[0].pageX - event.touches[1].pageX, event.touches[0].pageY - event.touches[1].pageY);
-		        scale = move_dist / start.distance;
+		        scale = move_dist / start.dist;
 		      }
 		      // Calculate how much the fingers have moved on the X and Y axis
 		      pointX = (((event.touches[0].pageX + event.touches[1].pageX) / 2) - start.x);
