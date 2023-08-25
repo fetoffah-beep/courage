@@ -3,8 +3,6 @@ var scale = 1,
 panning = false,
 pointX = 0,
 pointY = 0,
-pointX1 = 0,
-pointY1 = 0,
 mid_x = 0,
 mid_y = 0,
 start = { x: 0, y: 0 },
@@ -71,9 +69,9 @@ zoommap = document.getElementById("immagine");
 		zoommap.style.transform = "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")";
 	} else if (e.type == 'touchmove'){
 		if (e.touches.length === 1){
-			pointX1 = (e.touches[0].clientX - start.x);
-			pointY1 = (e.touches[0].clientY - start.y);
-			zoommap.style.transform = "translate(" + pointX1 + "px, " + pointY1 + "px) scale(" + scale + ")";	
+			pointX = (e.touches[0].clientX - start.x);
+			pointY = (e.touches[0].clientY - start.y);
+			zoommap.style.transform = "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")";	
 				
 		} else if (e.touches.length === 2){
 		      mid_x = (e.touches[0].clientX + e.touches[1].clientX) / 2
