@@ -109,14 +109,14 @@ zoommap = document.getElementById("immagine");
 			if (e.scale) {
 				scale = e.scale;
 			} else {
-				const move_dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+				var move_dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
 				scale = move_dist / start.dist;
 			} 
 			// Calculate how much the fingers have moved on the X and Y axis
 		      var x = ((img_dim.width - (img_dim.right- mid_x ))/img_dim.width) * 100; //x position within the img element
 	    	  var y = ((img_dim.height - (img_dim.bottom- mid_y))/img_dim.height) * 100; //y position within the img element
 	    	  zoommap.style.transformOrigin = x + "% " + y + "%";
-	    	  const button = document.getElementById("maptext");
+	    	  var button = document.getElementById("maptext");
 	    	  button.innerText = x +' ,'+ y +' ,' +  zoommap.style.transformOrigin +' ,'+  mid_x+' ,'+  mid_y+' ,'+  pointX+' ,'+ pointY;
 	    	}
 	    }
