@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WRF Forecasts</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" type="text/css" media="all" href="main.css" />
+  <link rel="icon" type="image/jpg" href="../grafici_wrf/immagine3.jpg"/>
+  <script type='text/javascript' src="main.js"></script>
+</head>
+<body>
+  <div id="wrapper">
+
+  <table class="center">
+    <tr>
+      <td align="center"> 
+        <center><img src="../grafici_wrf/immagine3.jpg" style="border:0;" height="40" width="40"/></center>
+      </td>
+      <td align="center">
+        <font size="6" color="#0000FF">&nbsp;&nbsp;WRF FORECAST   (CNR-ISAC Roma)</font></i>
+      </td>
+      <td align="center"> 
+        <center><img src="../grafici_wrf/images.jpg" style="border:0;" height="40" width="40"/></center>
+      </td>
+    </tr>
+  </table>
+
+  <table class="center">
+    <tr>
+      <td align="center">
+        <font size="2">
+          <i>Contact:</i>
+        </font>
+        <font size="2" color="#0000FF">
+          <i>
+            <a href="mailto:s.federico@isac.cnr.it" style="text-decoration:none;">s.federico@isac.cnr.it,</a>
+            <a href="mailto:c.transerici@isac.cnr.it" style="text-decoration:none;">c.transerici@isac.cnr.it</a>
+          </i>
+        </font>
+
+      </td>
+    </tr>
+
+    <tr>
+      <td align="left" colspan="3">
+        <b>
+          <i>
+            <font size="2">All dates on this page are in UTC (LDST - 2h)
+            </font>
+          </i>
+        </b>
+      </td>
+    </tr>
+    <tr>
+
+    </tr>
+  </table>
+
+  <fieldset style='border: 0;'>
+    <div class="spatialInterval">
+      <input type="radio" name="spatial_interval" value="3 km" id="spatial_interval_3" onclick="checkRadio()" checked=check/>
+      <label class="radio-label" for="spatial_interval_3">3 km</label>
+      <input type="radio" name="spatial_interval" value="6 km" id="spatial_interval_6"  onclick="checkRadio()" />
+      <label class="radio-label" for="spatial_interval_6">6 km</label>
+    </div>
+  </fieldset>
+
+<!-- Use the onchange property to detect that a field value has been changed and update the graphs -->
+  <table class="center">
+    <tr>
+      <td>
+        <B>Parameter: </B>
+        
+        <select id="vcampo_3km" onchange='showimage()'> 
+         <optgroup label="Parameters">
+           <option value = "Precipitation">Precipitation</option>
+           <option value = "Lightning stroke">Lightning stroke</option>
+         </optgroup>
+       </select>
+       <select id="vcampo_6km" style="display : none"; onchange='showimage()'></select>
+
+       <b><label for="datePicker">Day:</label></b>
+       <input type="date" id="datePicker" onchange='showimage()'>
+        <b>Hour of forecast : </b>
+       <select ID="vtime_3km" onchange='showimage()'></select>
+       <select ID="vtime_6km" style="display : none"; onchange='showimage()'></select>
+       <select ID="dummy_vtime_3km" style="display : none";></select>
+       <select ID="dummy_vtime_6km" style="display : none";></select>
+
+     </td>
+   </tr>
+   
+ </table>
+
+ <br>
+
+  <div style="text-align:center;">
+    <table>
+      <input type="submit" value="<<" onclick="prevousImage()" id="backnav">
+      <button onclick="animation_button()" id="animButton" >Start animation</button>
+      <input type="submit" value=">>" onclick="nextImage()" id="forwardnav">
+    </table>
+  </div>
+<table class="center">
+  <tr> <!-- Inizio 2 riga -->
+    <td id="tb1" align="center" colspan="4">
+      <fieldset style="border-color:rgb(204,204,204); border-width:thin;">
+        <legend align="left" style="font-weight:bold; font-size: 120%; color: black;">Map</legend>
+        <div id="mapimg">
+          <img name="immagine" id="immagine" alt="image not available" width="500" onerror='imgerror()'>
+          <p id="maptext"></p>
+        </div>
+      </fieldset>
+    </td>
+  </tr> 
+</table>
+<script src="sub_main.js"></script>
+</div>
+</body>
+</html>
