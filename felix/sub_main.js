@@ -21,10 +21,10 @@ zoommap = document.getElementById("immagine");
 	} 
 	else if (e.type == 'touchstart'){
 		if (e.touches.length === 1){
-			start = { x: e.touches[0].clientX - pointX, y: e.touches[0].clientY - pointY};			
+			start = { x: e.touches[0].clientX, y: e.touches[0].clientY};			
 		} else if (e.touches.length >= 2){
-			start = { x: (e.touches[0].clientX + e.touches[1].clientX) / 2 - pointX, 
-				y: (e.touches[0].clientY + e.touches[1].clientY) / 2 - pointY,
+			start = { x: (e.touches[0].clientX + e.touches[1].clientX) / 2, 
+				y: (e.touches[0].clientY + e.touches[1].clientY) / 2,
 				dist: Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY)
 			};
 		}
