@@ -108,7 +108,6 @@ zoommap = document.getElementById("immagine");
 			} else {
 				var move_dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
 				scale = move_dist / start.dist;
-				start.dist = move_dist;
 			} 
 			// Calculate how much the fingers have moved on the X and Y axis
 		      var x = ((img_dim.width - (img_dim.right- mid_x ))/img_dim.width) * 100; //x position within the img element
