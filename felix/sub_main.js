@@ -71,14 +71,14 @@ zoommap = document.getElementById("immagine");
 		if (e.touches.length === 1){
 			pointX = (e.touches[0].clientX - start.x);
 			pointY = (e.touches[0].clientY - start.y);
-				
+			zoommap.style.transform = "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")";	
 		} else if (e.touches.length === 2){
 			  mid_x = (e.touches[0].clientX + e.touches[1].clientX) / 2
 		      mid_y = (e.touches[0].clientY + e.touches[1].clientY) / 2
 		      pointX = (mid_x - start.x);
 		      pointY = (mid_y - start.y);
 		}
-		zoommap.style.transform = "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")";	
+		
 	}
 
 });
