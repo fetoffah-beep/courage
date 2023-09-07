@@ -108,7 +108,7 @@ zoommap = document.getElementById("immagine");
 				scale = e.scale;
 			} else {
 				var move_dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
-				(move_dist > start.dist) ? (scale *= 1.1) : (scale /= 1.1);
+				(move_dist > start.dist) ? (scale *= (1 + start.dist/move_dist)) : (scale /= (1 + start.dist/move_dist));
 			} 
 			// Calculate how much the fingers have moved on the X and Y axis
 		      var x = ((img_dim.width - (img_dim.right- mid_x ))/img_dim.width) * 100; //x position within the img element
