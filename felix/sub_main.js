@@ -115,10 +115,11 @@ zoommap = document.getElementById("immagine");
 	    	  var y = ((img_dim.height - (img_dim.bottom- mid_y))/img_dim.height) * 100; //y position within the img element
 	    	  zoommap.style.transformOrigin = x + "% " + y + "%";
 	    	  var button = document.getElementById("maptext");
-	    	  button.innerText = scale;
+	    	  
 	    	}
 	    }
 	    	
 	    scale = Math.min(Math.max(1, scale), 20);
+	    button.innerText = scale;
 	    zoommap.style.transform = "scale(" + scale + ") translate(" + pointX + "px, " + pointY + "px)";
 	});
